@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { getCourses, getRecommendations } from './services/courseApi'
 
 function App() {
+  const recommendationLimit = 3
   const [courses, setCourses] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
@@ -166,13 +167,21 @@ function App() {
 
                 {!recommendError && recommendations.length > 0 && (
                   <div className="mt-4">
-                    <h3 className="h5 mb-3">Ket qua goi y</h3>
+                    <div className="d-flex justify-content-between align-items-center mb-3 gap-3">
+                      <h3 className="h5 mb-0">Top {recommendationLimit} goi y phu hop nhat</h3>
+                      <span className="badge text-bg-success">
+                        {recommendations.length} ket qua
+                      </span>
+                    </div>
                     <div className="row g-4">
-                      {recommendations.map((item) => (
+                      {recommendations.map((item, index) => (
                         <div className="col-md-6" key={item.course.id}>
                           <div className="recommend-card h-100">
                             <div className="d-flex justify-content-between align-items-start gap-3 mb-3">
                               <div>
+                                <p className="small text-success fw-semibold mb-2">
+                                  Top {index + 1}
+                                </p>
                                 <p className="small text-uppercase text-secondary fw-semibold mb-2">
                                   {item.course.category}
                                 </p>
